@@ -1,6 +1,6 @@
-# Saber Haidari Mobile Shop
+# SH Mobile
 
-Welcome to the **Saber Haidari Mobile Shop** official website project! This is a modern, static, 3-page web application featuring high-end 2D/3D animations, crisp responsive UI/UX, product filtering, interactive quick-view modal, and a persistent cart drawer.
+Welcome to the **SH Mobile** official website project! This is a modern, static, 3-page web application featuring high-end 2D/3D animations, crisp responsive UI/UX, product filtering, interactive quick-view modal, and a persistent cart drawer.
 
 ---
 
@@ -57,4 +57,4 @@ Because this project uses standard web standards (HTML5, CSS3, JavaScript, Tailw
 - **FontAwesome:** Vector iconography.
 - **Google Fonts (Inter):** Clean modern typography.
 
-© 2026 Saber Haidari Mobile Shop. All rights reserved.
+© 2026 SH Mobile. All rights reserved.
