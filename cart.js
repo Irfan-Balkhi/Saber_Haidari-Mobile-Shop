@@ -84,7 +84,7 @@ function checkout() {
     cart = [];
     updateCartUI();
     toggleCart();
-    showToast('Thank you for choosing Saber Haidari Mobile Shop! Your order has been registered.', 'success');
+    showToast('Thank you for choosing SH Mobile! Your order has been registered.', 'success');
 }
 
 document.addEventListener('keydown', e => {
