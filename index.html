@@ -16,7 +16,27 @@
         .animate-float { animation: float 5s ease-in-out infinite; }
         .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.3); }
+        /* Hero redesign */
+        .hero-spot { background: radial-gradient(500px circle at var(--mx, 50%) var(--my, 40%), rgba(59, 130, 246, 0.16), transparent 60%); }
+        @keyframes drift { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(30px, -24px) scale(1.12); } }
+        .orb { position: absolute; border-radius: 9999px; filter: blur(70px); pointer-events: none; animation: drift 14s ease-in-out infinite; }
+        @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .rise { opacity: 0; animation: rise .7s cubic-bezier(.2,.7,.2,1) forwards; }
+        .d1 { animation-delay: .05s; } .d2 { animation-delay: .15s; } .d3 { animation-delay: .25s; } .d4 { animation-delay: .35s; } .d5 { animation-delay: .5s; }
+        .grid-fade { background-image: linear-gradient(rgba(148,163,184,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(148,163,184,.07) 1px, transparent 1px); background-size: 48px 48px; -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%); mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%); }
+        /* Brand pills + product cards polish */
+        .brand-pill { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background-color .25s ease; }
+        .brand-pill:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 12px 26px -12px var(--accent); }
+        .brand-pill i { transition: transform .25s ease; }
+        .brand-pill:hover i { transform: scale(1.15) rotate(-6deg); }
+        .product-card:hover { border-color: rgba(59, 130, 246, 0.55); }
+        .product-media { background-image: radial-gradient(circle at 50% 45%, rgba(59, 130, 246, 0.22), transparent 65%); }
+        .product-media img { filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.35)); }
+        .product-card :is(a, button):focus-visible, .brand-pill:focus-visible { outline: 2px solid #3b82f6; outline-offset: 3px; }
+        @media (prefers-reduced-motion: reduce) { .orb, .animate-float { animation: none; } .rise { opacity: 1; animation: none; } .brand-pill:hover, .brand-pill:hover i { transform: none; } }
     </style>
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="theme.css">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
 
@@ -66,37 +86,44 @@
     <!-- Main Content -->
     <main class="flex-grow">
         <!-- Hero 3D Section -->
-        <section class="relative overflow-hidden py-16 lg:py-24 hero-glow border-b border-slate-800">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="hero" class="relative overflow-hidden py-16 lg:py-24 hero-glow border-b border-slate-800">
+            <!-- Decorative background -->
+            <div class="absolute inset-0 grid-fade pointer-events-none"></div>
+            <div class="hero-spot absolute inset-0 pointer-events-none"></div>
+            <div class="orb w-72 h-72 bg-blue-600/25 -top-16 -left-16"></div>
+            <div class="orb w-80 h-80 bg-indigo-600/20 bottom-0 right-0" style="animation-delay:-6s"></div>
+
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    
+
                     <!-- Left Hero Content -->
                     <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold tracking-wider uppercase">
+                        <div class="rise d1 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold tracking-wider uppercase">
                             <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
                             Official 2026 Mobile Store
                         </div>
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
-                            Next-Gen Flagships at <span class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">Saber Haidari</span>
+                        <h1 class="rise d2 text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+                            Next-Gen Flagships at <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">Saber Haidari</span>
                         </h1>
-                        <p class="text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        <p class="rise d3 text-lg text-slate-400 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
                             Discover the newest smartphones with ultra-fast processors, revolutionizing cameras, and sleek futuristic designs. Authentic products with full 1-year warranty.
                         </p>
-                        
-                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+
+                        <div class="rise d4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
                             <a href="shop.html" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-2xl shadow-xl shadow-blue-600/30 hover:scale-105 transition-all text-center flex items-center justify-center gap-3">
                                 <span>Explore Catalog</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
-                            <a href="contact.html" class="w-full sm:w-auto px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold rounded-2xl border border-slate-700 hover:border-slate-600 transition-all text-center">
-                                Visit Our Store
+                            <a href="contact.html" class="w-full sm:w-auto px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold rounded-2xl border border-slate-700 hover:border-slate-600 transition-all text-center flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-location-dot text-blue-400"></i>
+                                <span>Visit Our Store</span>
                             </a>
                         </div>
 
-                        <!-- Stats Badge -->
-                        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800/80 max-w-md mx-auto lg:mx-0">
+                        <!-- Stats -->
+                        <div class="rise d5 grid grid-cols-3 gap-6 pt-8 border-t border-slate-800/80 max-w-md mx-auto lg:mx-0">
                             <div>
-                                <p class="text-2xl font-bold text-white">100%</p>
+                                <p class="text-2xl font-bold text-white"><span data-count="100">100</span>%</p>
                                 <p class="text-xs text-slate-400">Authentic Phones</p>
                             </div>
                             <div>
@@ -104,19 +131,27 @@
                                 <p class="text-xs text-slate-400">Express Delivery</p>
                             </div>
                             <div>
-                                <p class="text-2xl font-bold text-white">1 Year</p>
+                                <p class="text-2xl font-bold text-white"><span data-count="1">1</span> Year</p>
                                 <p class="text-xs text-slate-400">Official Warranty</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right Interactive 3D Phone Canvas -->
-                    <div class="lg:col-span-5 relative flex justify-center items-center">
-                        <div class="w-full h-[400px] sm:h-[450px] relative rounded-3xl bg-slate-900/60 border border-slate-800 shadow-2xl backdrop-blur-sm flex items-center justify-center overflow-hidden">
-                            <div id="3d-canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+                    <!-- Right Interactive 3D Phone -->
+                    <div class="rise d3 lg:col-span-5 relative flex justify-center items-center">
+                        <div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-blue-600/20 to-indigo-500/10 blur-2xl pointer-events-none"></div>
+                        <div class="w-full h-[400px] sm:h-[480px] relative rounded-3xl bg-slate-900/60 border border-slate-800 shadow-2xl backdrop-blur-sm flex items-center justify-center overflow-hidden">
+                            <div id="3d-canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y"></div>
                             <div class="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-800 text-xs text-slate-400 flex items-center gap-2 pointer-events-none">
-                                <i class="fa-solid fa-cube text-blue-400 animate-spin"></i>
-                                <span>Interactive 3D Phone Model (Drag to Rotate)</span>
+                                <i class="fa-solid fa-hand-pointer text-blue-400"></i>
+                                <span>Drag to rotate</span>
+                            </div>
+                            <!-- Floating spec chips -->
+                            <div class="animate-float absolute top-5 right-4 bg-slate-950/80 backdrop-blur-md px-3 py-2 rounded-xl border border-slate-800 text-xs pointer-events-none flex items-center gap-2">
+                                <i class="fa-solid fa-camera text-indigo-400"></i><span class="text-slate-200 font-semibold">200MP Camera</span>
+                            </div>
+                            <div class="animate-float absolute top-1/2 left-4 bg-slate-950/80 backdrop-blur-md px-3 py-2 rounded-xl border border-slate-800 text-xs pointer-events-none flex items-center gap-2" style="animation-delay:-2.5s">
+                                <i class="fa-solid fa-bolt text-emerald-400"></i><span class="text-slate-200 font-semibold">5G Ready</span>
                             </div>
                         </div>
                     </div>
@@ -128,21 +163,21 @@
         <!-- Brand Filter Pills -->
         <section class="py-12 bg-slate-900/40 border-b border-slate-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <p class="text-center text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Top Phone Brands In Store</p>
-                <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 opacity-80">
-                    <a href="shop.html?brand=Apple" class="flex items-center gap-2 px-6 py-3 bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500 rounded-2xl border border-slate-700 transition">
+                <p class="reveal text-center text-xs font-semibold text-slate-400 uppercase tracking-widest mb-6">Top Phone Brands In Store</p>
+                <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                    <a data-reveal="zoom" href="shop.html?brand=Apple" style="--accent:#e2e8f0" aria-label="Shop Apple phones" class="brand-pill reveal flex items-center gap-3 px-6 py-3.5 bg-slate-800/80 rounded-2xl border border-slate-700">
                         <i class="fa-brands fa-apple text-2xl text-slate-200"></i>
                         <span class="font-bold text-slate-200">Apple</span>
                     </a>
-                    <a href="shop.html?brand=Samsung" class="flex items-center gap-2 px-6 py-3 bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500 rounded-2xl border border-slate-700 transition">
+                    <a data-reveal="zoom" href="shop.html?brand=Samsung" style="--accent:#3b82f6" aria-label="Shop Samsung phones" class="brand-pill reveal flex items-center gap-3 px-6 py-3.5 bg-slate-800/80 rounded-2xl border border-slate-700">
                         <i class="fa-solid fa-mobile text-2xl text-blue-400"></i>
                         <span class="font-bold text-slate-200">Samsung</span>
                     </a>
-                    <a href="shop.html?brand=Google" class="flex items-center gap-2 px-6 py-3 bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500 rounded-2xl border border-slate-700 transition">
+                    <a data-reveal="zoom" href="shop.html?brand=Google" style="--accent:#34d399" aria-label="Shop Google phones" class="brand-pill reveal flex items-center gap-3 px-6 py-3.5 bg-slate-800/80 rounded-2xl border border-slate-700">
                         <i class="fa-brands fa-google text-2xl text-emerald-400"></i>
                         <span class="font-bold text-slate-200">Google Pixel</span>
                     </a>
-                    <a href="shop.html?brand=Xiaomi" class="flex items-center gap-2 px-6 py-3 bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500 rounded-2xl border border-slate-700 transition">
+                    <a data-reveal="zoom" href="shop.html?brand=Xiaomi" style="--accent:#fb923c" aria-label="Shop Xiaomi phones" class="brand-pill reveal flex items-center gap-3 px-6 py-3.5 bg-slate-800/80 rounded-2xl border border-slate-700">
                         <i class="fa-solid fa-microchip text-2xl text-orange-400"></i>
                         <span class="font-bold text-slate-200">Xiaomi</span>
                     </a>
@@ -152,7 +187,7 @@
 
         <!-- Featured Flagships Grid -->
         <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div class="reveal flex flex-col md:flex-row md:items-end justify-between mb-12">
                 <div>
                     <h2 class="text-3xl font-extrabold text-white tracking-tight">Featured Smartphones</h2>
                     <p class="text-slate-400 mt-2">Handpicked top performers available right now at Saber Haidari Mobile Shop.</p>
@@ -167,20 +202,20 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 
                 <!-- Phone 1 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
+                <div class="product-card reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
                     <div>
-                        <div class="relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
+                        <div class="product-media relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-blue-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">Top Seller</span>
-                            <img loading="lazy" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80" alt="iPhone 15 Pro Max" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80" alt="iPhone 15 Pro Max" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Apple</p>
                         <h3 class="text-xl font-bold text-white mt-1">iPhone 15 Pro Max</h3>
                         <p class="text-slate-400 text-sm mt-2 line-clamp-2">A17 Pro chip, Titanium design, 48MP main camera system with 5x optical zoom.</p>
                         
                         <div class="flex flex-wrap gap-2 mt-4">
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">256GB</span>
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">8GB RAM</span>
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">5G</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-hard-drive text-blue-400 text-[10px]"></i>256GB</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-memory text-blue-400 text-[10px]"></i>8GB RAM</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-bolt text-blue-400 text-[10px]"></i>5G</span>
                         </div>
                     </div>
 
@@ -189,7 +224,7 @@
                             <p class="text-xs text-slate-400">Price</p>
                             <p class="text-2xl font-black text-white">$1,199</p>
                         </div>
-                        <button onclick="addToCart('iPhone 15 Pro Max', 1199, 'Apple')" class="bg-blue-600 hover:bg-blue-500 text-white p-3.5 rounded-2xl shadow-lg shadow-blue-600/30 hover:scale-105 transition flex items-center gap-2">
+                        <button onclick="addToCart('iPhone 15 Pro Max', 1199, 'Apple')" class="bg-blue-600 hover:bg-blue-500 text-white p-3.5 rounded-2xl shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95 transition flex items-center gap-2">
                             <i class="fa-solid fa-cart-plus"></i>
                             <span class="text-xs font-bold">Add to Cart</span>
                         </button>
@@ -197,20 +232,20 @@
                 </div>
 
                 <!-- Phone 2 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
+                <div class="product-card reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
                     <div>
-                        <div class="relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
+                        <div class="product-media relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-emerald-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">New Arrival</span>
-                            <img loading="lazy" src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80" alt="Samsung Galaxy S24 Ultra" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80" alt="Samsung Galaxy S24 Ultra" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Samsung</p>
                         <h3 class="text-xl font-bold text-white mt-1">Galaxy S24 Ultra</h3>
                         <p class="text-slate-400 text-sm mt-2 line-clamp-2">Galaxy AI, Snapdragon 8 Gen 3, built-in S Pen & 200MP Quad Tele camera.</p>
                         
                         <div class="flex flex-wrap gap-2 mt-4">
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">512GB</span>
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">12GB RAM</span>
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">AI Features</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-hard-drive text-blue-400 text-[10px]"></i>512GB</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-memory text-blue-400 text-[10px]"></i>12GB RAM</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-bolt text-blue-400 text-[10px]"></i>AI Features</span>
                         </div>
                     </div>
 
@@ -219,7 +254,7 @@
                             <p class="text-xs text-slate-400">Price</p>
                             <p class="text-2xl font-black text-white">$1,299</p>
                         </div>
-                        <button onclick="addToCart('Galaxy S24 Ultra', 1299, 'Samsung')" class="bg-blue-600 hover:bg-blue-500 text-white p-3.5 rounded-2xl shadow-lg shadow-blue-600/30 hover:scale-105 transition flex items-center gap-2">
+                        <button onclick="addToCart('Galaxy S24 Ultra', 1299, 'Samsung')" class="bg-blue-600 hover:bg-blue-500 text-white p-3.5 rounded-2xl shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95 transition flex items-center gap-2">
                             <i class="fa-solid fa-cart-plus"></i>
                             <span class="text-xs font-bold">Add to Cart</span>
                         </button>
@@ -227,20 +262,20 @@
                 </div>
 
                 <!-- Phone 3 -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
+                <div class="product-card reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
                     <div>
-                        <div class="relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
+                        <div class="product-media relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-indigo-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">Camera King</span>
-                            <img loading="lazy" src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80" alt="Google Pixel 8 Pro" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80" alt="Google Pixel 8 Pro" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Google</p>
                         <h3 class="text-xl font-bold text-white mt-1">Google Pixel 8 Pro</h3>
                         <p class="text-slate-400 text-sm mt-2 line-clamp-2">Google Tensor G3, Best-in-class computational photography, 7 years updates.</p>
                         
                         <div class="flex flex-wrap gap-2 mt-4">
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">128GB</span>
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">12GB RAM</span>
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium">Tensor G3</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-hard-drive text-blue-400 text-[10px]"></i>128GB</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-memory text-blue-400 text-[10px]"></i>12GB RAM</span>
+                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg font-medium inline-flex items-center gap-1.5"><i class="fa-solid fa-bolt text-blue-400 text-[10px]"></i>Tensor G3</span>
                         </div>
                     </div>
 
@@ -249,7 +284,7 @@
                             <p class="text-xs text-slate-400">Price</p>
                             <p class="text-2xl font-black text-white">$899</p>
                         </div>
-                        <button onclick="addToCart('Google Pixel 8 Pro', 899, 'Google')" class="bg-blue-600 hover:bg-blue-500 text-white p-3.5 rounded-2xl shadow-lg shadow-blue-600/30 hover:scale-105 transition flex items-center gap-2">
+                        <button onclick="addToCart('Google Pixel 8 Pro', 899, 'Google')" class="bg-blue-600 hover:bg-blue-500 text-white p-3.5 rounded-2xl shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95 transition flex items-center gap-2">
                             <i class="fa-solid fa-cart-plus"></i>
                             <span class="text-xs font-bold">Add to Cart</span>
                         </button>
@@ -258,7 +293,106 @@
 
             </div>
         </section>
+        <!-- Why Choose Us -->
+        <section class="py-20 bg-slate-900/40 border-y border-slate-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal text-center max-w-2xl mx-auto mb-12">
+                    <p class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">Why Choose Us</p>
+                    <h2 class="text-3xl font-extrabold text-white tracking-tight">Buy with confidence at Saber Haidari</h2>
+                    <p class="text-slate-400 mt-3">Genuine phones, real warranty and people who know their products.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-600/10 border border-blue-500/20 text-blue-400 flex items-center justify-center text-xl mb-5">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">100% Authentic</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Every phone is genuine, sealed and sourced from trusted suppliers.</p>
+                </div>
+
+                <div class="reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-xl mb-5">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">1-Year Warranty</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Official warranty on every device, with easy claims at our store.</p>
+                </div>
+
+                <div class="reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-600/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl mb-5">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Express Delivery</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Fast, careful delivery so your new phone reaches you quickly.</p>
+                </div>
+
+                <div class="reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover">
+                    <div class="w-12 h-12 rounded-2xl bg-orange-600/10 border border-orange-500/20 text-orange-400 flex items-center justify-center text-xl mb-5">
+                        <i class="fa-solid fa-headset"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Expert Support</h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">Our team helps you choose, set up and fix, before and after you buy.</p>
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Reviews (rendered from the REVIEWS array in the script below) -->
+        <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center max-w-2xl mx-auto mb-12">
+                <p class="text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">Customer Reviews</p>
+                <h2 class="text-3xl font-extrabold text-white tracking-tight">What our customers say</h2>
+            </div>
+            <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        </section>
+
+        <!-- Promo Banner -->
+        <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div data-reveal="zoom" class="promo-banner reveal relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-700 via-indigo-600 to-violet-600 px-6 py-12 sm:px-12 sm:py-14 shadow-2xl shadow-blue-600/20">
+                <div class="orb w-64 h-64 bg-white/20 -top-20 -right-10"></div>
+                <div class="orb w-48 h-48 bg-white/10 -bottom-16 left-1/3" style="animation-delay:-5s"></div>
+                <div class="relative flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left">
+                    <div class="max-w-xl">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold uppercase tracking-wider">
+                            <i class="fa-solid fa-bolt"></i> Latest Flagships In Stock
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl font-black text-white mt-4 leading-tight">Ready for your next phone?</h2>
+                        <p class="text-blue-100 mt-3">Browse the full catalog or visit our Kabul showroom. We'll help you find the right model for your budget.</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+                        <a href="shop.html" class="px-8 py-4 bg-white text-blue-700 hover:bg-blue-50 font-bold rounded-2xl shadow-lg hover:scale-105 transition-all text-center flex items-center justify-center gap-3">
+                            <span>Shop Now</span><i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="contact.html" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl border border-white/30 transition-all text-center">
+                            Talk to Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- WhatsApp Call To Action -->
+        <section class="pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal flex flex-col md:flex-row items-center justify-between gap-6 bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10">
+                <div class="flex items-center gap-5 text-center md:text-left flex-col md:flex-row">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-600/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl shrink-0">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-white">Questions? Chat with us on WhatsApp</h2>
+                        <p class="text-slate-400 mt-1">Ask about prices, availability or warranty and we'll reply as soon as we can.</p>
+                    </div>
+                </div>
+                <a data-wa href="#" target="_blank" rel="noopener" class="w-full md:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/30 hover:scale-105 transition-all text-center flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-whatsapp text-xl"></i><span>Start a Chat</span>
+                </a>
+            </div>
+        </section>
     </main>
+
+    <!-- Floating WhatsApp button -->
+    <a data-wa href="#" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="fixed bottom-5 left-5 z-40 w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white text-3xl flex items-center justify-center shadow-xl shadow-emerald-600/40 hover:scale-110 transition">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <!-- Cart Drawer Modal -->
     <div id="cart-drawer" class="fixed inset-0 z-50 invisible transition-all duration-300">
@@ -297,11 +431,11 @@
     <footer class="bg-slate-950 border-t border-slate-800 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div>
+                <div class="reveal">
                     <h4 class="text-lg font-bold text-white mb-3">Saber Haidari Mobile Shop</h4>
                     <p class="text-sm text-slate-400 leading-relaxed">Your trusted destination for genuine smartphones, tablets, and mobile accessories with warranty and express delivery.</p>
                 </div>
-                <div>
+                <div class="reveal">
                     <h5 class="text-sm font-semibold text-white uppercase tracking-wider mb-3">Quick Navigation</h5>
                     <ul class="space-y-2 text-sm text-slate-400">
                         <li><a href="index.html" class="hover:text-blue-400">Home</a></li>
@@ -309,7 +443,7 @@
                         <li><a href="contact.html" class="hover:text-blue-400">Store Support</a></li>
                     </ul>
                 </div>
-                <div>
+                <div class="reveal">
                     <h5 class="text-sm font-semibold text-white uppercase tracking-wider mb-3">Customer Service</h5>
                     <ul class="space-y-2 text-sm text-slate-400">
                         <li><a href="contact.html" class="hover:text-blue-400">Warranty Registration</a></li>
@@ -317,14 +451,14 @@
                         <li><a href="contact.html" class="hover:text-blue-400">Returns & Replacement</a></li>
                     </ul>
                 </div>
-                <div>
+                <div class="reveal">
                     <h5 class="text-sm font-semibold text-white uppercase tracking-wider mb-3">Get In Touch</h5>
                     <p class="text-sm text-slate-400">Kabul, Afghanistan</p>
                     <p class="text-sm text-slate-400 mt-1">Email: info@saberhaidarimobile.com</p>
                     <p class="text-sm text-slate-400 mt-1">Phone: +93 (0) 700 000 000</p>
                 </div>
             </div>
-            <div class="pt-8 border-t border-slate-900 text-center text-xs text-slate-500">
+            <div class="reveal pt-8 border-t border-slate-900 text-center text-xs text-slate-500">
                 © 2026 Saber Haidari Mobile Shop. All rights reserved. Designed for optimal performance.
             </div>
         </div>
@@ -333,57 +467,180 @@
     <!-- Interactive Scripts -->
     <script src="cart.js"></script>
     <script>
-        // Three.js 3D Interactive Canvas
+        // ---------- WhatsApp ----------
+        // TODO: replace with the shop's real number (digits only, with country code, no + or spaces).
+        const WHATSAPP_NUMBER = '93700000000';
+        const WHATSAPP_MESSAGE = 'Hello Saber Haidari Mobile Shop, I have a question about a phone.';
+        document.querySelectorAll('[data-wa]').forEach(a => {
+            a.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_MESSAGE);
+        });
+
+        // ---------- Customer reviews ----------
+        // TODO: replace these SAMPLE entries with real customer reviews, then remove "sample: true"
+        // (the "Sample review" tag only shows while sample is true).
+        const REVIEWS = [
+            { name: 'Customer Name', city: 'Kabul', rating: 5, text: 'Sample text: the phone was sealed and genuine, and the staff explained everything clearly.', sample: true },
+            { name: 'Customer Name', city: 'Kabul', rating: 5, text: 'Sample text: fast delivery and a proper warranty card. Easy to deal with.', sample: true },
+            { name: 'Customer Name', city: 'Kabul', rating: 4, text: 'Sample text: helpful advice on which model fit my budget.', sample: true }
+        ];
+        const reviewsGrid = document.getElementById('reviews-grid');
+        if (reviewsGrid) {
+            reviewsGrid.innerHTML = REVIEWS.map(r => {
+                const stars = Array.from({ length: 5 }, (_, i) =>
+                    '<i class="fa-solid fa-star ' + (i < r.rating ? 'text-amber-400' : 'text-slate-600') + '"></i>').join('');
+                return '<figure class="reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between">' +
+                    '<div><div class="flex items-center justify-between mb-4"><div class="flex gap-1 text-sm">' + stars + '</div>' +
+                    (r.sample ? '<span class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">Sample review</span>' : '') +
+                    '</div><blockquote class="text-slate-300 text-sm leading-relaxed">&ldquo;' + escapeHTML(r.text) + '&rdquo;</blockquote></div>' +
+                    '<figcaption class="flex items-center gap-3 mt-6 pt-4 border-t border-slate-800">' +
+                    '<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 text-white font-bold flex items-center justify-center">' + escapeHTML(r.name.charAt(0)) + '</div>' +
+                    '<div><p class="text-sm font-bold text-white">' + escapeHTML(r.name) + '</p><p class="text-xs text-slate-400">' + escapeHTML(r.city) + '</p></div>' +
+                    '</figcaption></figure>';
+            }).join('');
+        }
+
+        // ---------- Hero: pointer spotlight + count-up ----------
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const hero = document.getElementById('hero');
+        if (hero && !reduceMotion) {
+            hero.addEventListener('pointermove', e => {
+                const r = hero.getBoundingClientRect();
+                hero.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+                hero.style.setProperty('--my', (e.clientY - r.top) + 'px');
+            });
+            document.querySelectorAll('[data-count]').forEach(el => {
+                const target = +el.dataset.count, start = performance.now(), dur = 1400;
+                el.textContent = '0';
+                (function tick(now) {
+                    const t = Math.min((now - start) / dur, 1);
+                    el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+                    if (t < 1) requestAnimationFrame(tick);
+                })(start);
+            });
+        }
+
+        // ---------- Hero: 3D smartphone ----------
         const container = document.getElementById('3d-canvas-container');
         if (container && window.THREE) {
+            const W = 2.2, H = 4.4, R = 0.38, DEPTH = 0.2, BEVEL = 0.04;
+
+            function roundedRect(w, h, r) {
+                const x = -w / 2, y = -h / 2, sh = new THREE.Shape();
+                sh.moveTo(x + r, y);
+                sh.lineTo(x + w - r, y); sh.quadraticCurveTo(x + w, y, x + w, y + r);
+                sh.lineTo(x + w, y + h - r); sh.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+                sh.lineTo(x + r, y + h); sh.quadraticCurveTo(x, y + h, x, y + h - r);
+                sh.lineTo(x, y + r); sh.quadraticCurveTo(x, y, x + r, y);
+                return sh;
+            }
+
             const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.z = 8.5;
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
             renderer.setSize(container.clientWidth, container.clientHeight);
             container.appendChild(renderer.domElement);
 
-            // 3D Smartphone Mesh
-            const geometry = new THREE.BoxGeometry(2.2, 4.4, 0.25);
-            const materials = [
-                new THREE.MeshStandardMaterial({ color: 0x1e293b }), // Right
-                new THREE.MeshStandardMaterial({ color: 0x1e293b }), // Left
-                new THREE.MeshStandardMaterial({ color: 0x0284c7 }), // Top
-                new THREE.MeshStandardMaterial({ color: 0x0284c7 }), // Bottom
-                new THREE.MeshStandardMaterial({ color: 0x3b82f6 }), // Front Screen
-                new THREE.MeshStandardMaterial({ color: 0x0f172a })  // Back
-            ];
-            const phone = new THREE.Mesh(geometry, materials);
+            const phone = new THREE.Group();
             scene.add(phone);
 
+            // Body (rounded, bevelled, metallic)
+            const bodyGeo = new THREE.ExtrudeGeometry(roundedRect(W, H, R), {
+                depth: DEPTH, bevelEnabled: true, bevelThickness: BEVEL, bevelSize: BEVEL, bevelSegments: 4, curveSegments: 16
+            });
+            bodyGeo.translate(0, 0, -DEPTH / 2);
+            const body = new THREE.Mesh(bodyGeo, new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.7, roughness: 0.3 }));
+            phone.add(body);
+            const frontZ = DEPTH / 2 + BEVEL + 0.002;
+            const backZ = -frontZ;
+
+            // Screen with generated wallpaper + lock-screen clock
+            const cv = document.createElement('canvas');
+            cv.width = 512; cv.height = 1024;
+            const g = cv.getContext('2d');
+            const grad = g.createLinearGradient(0, 0, 512, 1024);
+            grad.addColorStop(0, '#1d4ed8'); grad.addColorStop(0.5, '#6366f1'); grad.addColorStop(1, '#0f172a');
+            g.fillStyle = grad; g.fillRect(0, 0, 512, 1024);
+            const glow = g.createRadialGradient(380, 300, 10, 380, 300, 340);
+            glow.addColorStop(0, 'rgba(147,197,253,.55)'); glow.addColorStop(1, 'rgba(147,197,253,0)');
+            g.fillStyle = glow; g.fillRect(0, 0, 512, 1024);
+            g.fillStyle = 'rgba(255,255,255,.95)'; g.textAlign = 'center';
+            g.font = '700 150px Inter, Arial, sans-serif'; g.fillText('9:41', 256, 330);
+            g.font = '500 34px Inter, Arial, sans-serif'; g.fillStyle = 'rgba(255,255,255,.75)';
+            g.fillText('Saber Haidari Mobile', 256, 395);
+            g.fillStyle = 'rgba(0,0,0,.55)'; g.beginPath(); g.roundRect ? g.roundRect(196, 28, 120, 34, 17) : g.rect(196, 28, 120, 34); g.fill();
+            g.fillStyle = 'rgba(255,255,255,.8)'; g.fillRect(186, 975, 140, 8);
+            const tex = new THREE.CanvasTexture(cv);
+            if (THREE.sRGBEncoding) tex.encoding = THREE.sRGBEncoding;
+            const screenGeo = new THREE.ShapeGeometry(roundedRect(W - 0.16, H - 0.16, R - 0.07), 16);
+            const pos = screenGeo.attributes.position, uv = screenGeo.attributes.uv;
+            for (let i = 0; i < pos.count; i++) uv.setXY(i, (pos.getX(i) + (W - 0.16) / 2) / (W - 0.16), (pos.getY(i) + (H - 0.16) / 2) / (H - 0.16));
+            const screen = new THREE.Mesh(screenGeo, new THREE.MeshBasicMaterial({ map: tex }));
+            screen.position.z = frontZ;
+            phone.add(screen);
+
+            // Back camera bump + lenses
+            const bump = new THREE.Mesh(
+                new THREE.ExtrudeGeometry(roundedRect(1.0, 1.0, 0.24), { depth: 0.05, bevelEnabled: true, bevelThickness: 0.015, bevelSize: 0.015, bevelSegments: 3 }),
+                new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.6, roughness: 0.35 })
+            );
+            bump.rotation.y = Math.PI;
+            bump.position.set(-0.45, 1.5, backZ + 0.005);
+            phone.add(bump);
+            const lensMat = new THREE.MeshStandardMaterial({ color: 0x020617, metalness: 0.9, roughness: 0.1 });
+            const ringMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 1, roughness: 0.25 });
+            [[-0.68, 1.75], [-0.68, 1.25], [-0.2, 1.5]].forEach(([x, y]) => {
+                const ring = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.17, 0.05, 32), ringMat);
+                const lens = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.07, 32), lensMat);
+                [ring, lens].forEach(m => { m.rotation.x = Math.PI / 2; m.position.set(x, y, backZ - 0.1); phone.add(m); });
+            });
+
+            // Side buttons
+            const btnMat = new THREE.MeshStandardMaterial({ color: 0x64748b, metalness: 0.9, roughness: 0.3 });
+            [[1.0, 0.7, 0.9], [1.0, -0.3, 0.55]].forEach(([_, y, h]) => {
+                const btn = new THREE.Mesh(new THREE.BoxGeometry(0.06, h, 0.1), btnMat);
+                btn.position.set(W / 2 + BEVEL + 0.02, y, 0);
+                phone.add(btn);
+            });
+
             // Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-            scene.add(ambientLight);
-            const dirLight = new THREE.DirectionalLight(0x38bdf8, 1);
-            dirLight.position.set(5, 5, 5);
-            scene.add(dirLight);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.75));
+            const key = new THREE.DirectionalLight(0xffffff, 0.9); key.position.set(3, 4, 6); scene.add(key);
+            const blue = new THREE.PointLight(0x3b82f6, 1.4, 20); blue.position.set(-4, -2, 4); scene.add(blue);
+            const violet = new THREE.PointLight(0x8b5cf6, 1.1, 20); violet.position.set(4, 3, -4); scene.add(violet);
 
-            camera.position.z = 7;
-
-            // Drag to rotate
-            let dragging = false, lastX = 0;
-            container.addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; container.setPointerCapture(e.pointerId); });
-            container.addEventListener('pointermove', e => { if (dragging) { phone.rotation.y += (e.clientX - lastX) * 0.01; lastX = e.clientX; } });
+            // Drag to rotate (with inertia) + idle spin
+            let dragging = false, lastX = 0, velocity = 0, visible = true;
+            container.addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; velocity = 0; container.setPointerCapture(e.pointerId); });
+            container.addEventListener('pointermove', e => {
+                if (!dragging) return;
+                velocity = (e.clientX - lastX) * 0.01;
+                phone.rotation.y += velocity; lastX = e.clientX;
+            });
             const stopDrag = () => { dragging = false; };
             container.addEventListener('pointerup', stopDrag);
             container.addEventListener('pointercancel', stopDrag);
 
-            // Rotation Animation
-            function animate() {
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver(es => { visible = es[0].isIntersecting; }, { threshold: 0.05 }).observe(container);
+            }
+
+            function animate(now) {
                 requestAnimationFrame(animate);
-                if (!dragging) phone.rotation.y += 0.01;
-                phone.rotation.x = Math.sin(Date.now() * 0.001) * 0.15;
+                if (!visible) return;
+                if (!dragging) {
+                    velocity *= 0.95;
+                    phone.rotation.y += reduceMotion ? velocity : velocity + 0.008;
+                }
+                const t = now * 0.001;
+                phone.rotation.x = reduceMotion ? 0 : Math.sin(t) * 0.12;
+                phone.position.y = reduceMotion ? 0 : Math.sin(t * 1.2) * 0.12;
                 renderer.render(scene, camera);
             }
-            animate();
+            requestAnimationFrame(animate);
 
-            // Handle resize
             window.addEventListener('resize', () => {
-                if(!container) return;
                 camera.aspect = container.clientWidth / container.clientHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(container.clientWidth, container.clientHeight);
