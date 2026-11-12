@@ -55,6 +55,11 @@
                     </button>
                 </div>
             </div>
+            <nav class="md:hidden flex items-center justify-center gap-6 pb-3 text-sm font-medium text-slate-300">
+                <a href="index.html" class="text-blue-400 font-semibold">Home</a>
+                <a href="shop.html" class="hover:text-blue-400">Shop</a>
+                <a href="contact.html" class="hover:text-blue-400">Contact</a>
+            </nav>
         </div>
     </header>
 
@@ -166,7 +171,7 @@
                     <div>
                         <div class="relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-blue-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">Top Seller</span>
-                            <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80" alt="iPhone 15 Pro Max" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80" alt="iPhone 15 Pro Max" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Apple</p>
                         <h3 class="text-xl font-bold text-white mt-1">iPhone 15 Pro Max</h3>
@@ -196,7 +201,7 @@
                     <div>
                         <div class="relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-emerald-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">New Arrival</span>
-                            <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80" alt="Samsung Galaxy S24 Ultra" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80" alt="Samsung Galaxy S24 Ultra" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Samsung</p>
                         <h3 class="text-xl font-bold text-white mt-1">Galaxy S24 Ultra</h3>
@@ -226,7 +231,7 @@
                     <div>
                         <div class="relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-indigo-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">Camera King</span>
-                            <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80" alt="Google Pixel 8 Pro" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80" alt="Google Pixel 8 Pro" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Google</p>
                         <h3 class="text-xl font-bold text-white mt-1">Google Pixel 8 Pro</h3>
@@ -326,71 +331,11 @@
     </footer>
 
     <!-- Interactive Scripts -->
+    <script src="cart.js"></script>
     <script>
-        // Shopping Cart State
-        let cart = [];
-
-        function toggleCart() {
-            const drawer = document.getElementById('cart-drawer');
-            drawer.classList.toggle('invisible');
-        }
-
-        function addToCart(title, price, brand) {
-            cart.push({ title, price, brand });
-            updateCartUI();
-            toggleCart();
-        }
-
-        function updateCartUI() {
-            document.getElementById('cart-badge').innerText = cart.length;
-            const container = document.getElementById('cart-items');
-            
-            if (cart.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-sm text-center py-8">Your cart is currently empty.</p>`;
-                document.getElementById('cart-subtotal').innerText = '$0';
-                return;
-            }
-
-            let html = '';
-            let total = 0;
-            cart.forEach((item, index) => {
-                total += item.price;
-                html += `
-                    <div class="flex items-center justify-between bg-slate-950 p-4 rounded-2xl border border-slate-800">
-                        <div>
-                            <p class="font-bold text-white text-sm">${item.title}</p>
-                            <p class="text-xs text-blue-400 font-semibold">${item.brand}</p>
-                            <p class="text-sm font-extrabold text-white mt-1">$${item.price}</p>
-                        </div>
-                        <button onclick="removeFromCart(${index})" class="text-slate-500 hover:text-red-400 p-2">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-            document.getElementById('cart-subtotal').innerText = `$${total.toLocaleString()}`;
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function checkout() {
-            if(cart.length === 0) {
-                alert('Your cart is empty!');
-                return;
-            }
-            alert('Thank you for choosing Saber Haidari Mobile Shop! Your order has been registered.');
-            cart = [];
-            updateCartUI();
-            toggleCart();
-        }
-
         // Three.js 3D Interactive Canvas
         const container = document.getElementById('3d-canvas-container');
-        if (container) {
+        if (container && window.THREE) {
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -400,12 +345,12 @@
             // 3D Smartphone Mesh
             const geometry = new THREE.BoxGeometry(2.2, 4.4, 0.25);
             const materials = [
-                new THREE.MeshBasicMaterial({ color: 0x1e293b }), // Right
-                new THREE.MeshBasicMaterial({ color: 0x1e293b }), // Left
-                new THREE.MeshBasicMaterial({ color: 0x0284c7 }), // Top
-                new THREE.MeshBasicMaterial({ color: 0x0284c7 }), // Bottom
-                new THREE.MeshBasicMaterial({ color: 0x3b82f6 }), // Front Screen
-                new THREE.MeshBasicMaterial({ color: 0x0f172a })  // Back
+                new THREE.MeshStandardMaterial({ color: 0x1e293b }), // Right
+                new THREE.MeshStandardMaterial({ color: 0x1e293b }), // Left
+                new THREE.MeshStandardMaterial({ color: 0x0284c7 }), // Top
+                new THREE.MeshStandardMaterial({ color: 0x0284c7 }), // Bottom
+                new THREE.MeshStandardMaterial({ color: 0x3b82f6 }), // Front Screen
+                new THREE.MeshStandardMaterial({ color: 0x0f172a })  // Back
             ];
             const phone = new THREE.Mesh(geometry, materials);
             scene.add(phone);
@@ -419,10 +364,18 @@
 
             camera.position.z = 7;
 
+            // Drag to rotate
+            let dragging = false, lastX = 0;
+            container.addEventListener('pointerdown', e => { dragging = true; lastX = e.clientX; container.setPointerCapture(e.pointerId); });
+            container.addEventListener('pointermove', e => { if (dragging) { phone.rotation.y += (e.clientX - lastX) * 0.01; lastX = e.clientX; } });
+            const stopDrag = () => { dragging = false; };
+            container.addEventListener('pointerup', stopDrag);
+            container.addEventListener('pointercancel', stopDrag);
+
             // Rotation Animation
             function animate() {
                 requestAnimationFrame(animate);
-                phone.rotation.y += 0.01;
+                if (!dragging) phone.rotation.y += 0.01;
                 phone.rotation.x = Math.sin(Date.now() * 0.001) * 0.15;
                 renderer.render(scene, camera);
             }
