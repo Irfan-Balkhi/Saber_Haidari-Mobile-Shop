@@ -26,7 +26,7 @@ function addToCart(title, price, brand) {
     if (existing) existing.qty += 1;
     else cart.push({ title, price, brand, qty: 1 });
     updateCartUI();
-    document.getElementById('cart-drawer').classList.remove('invisible');
+    showToast(title + ' added to cart', 'success', { label: 'View cart', onClick: toggleCart });
 }
 
 function changeQty(index, delta) {
@@ -78,13 +78,13 @@ function updateCartUI() {
 
 function checkout() {
     if (cart.length === 0) {
-        alert('Your cart is empty!');
+        showToast('Your cart is empty!', 'error');
         return;
     }
-    alert('Thank you for choosing Saber Haidari Mobile Shop! Your order has been registered.');
     cart = [];
     updateCartUI();
     toggleCart();
+    showToast('Thank you for choosing Saber Haidari Mobile Shop! Your order has been registered.', 'success');
 }
 
 document.addEventListener('keydown', e => {
