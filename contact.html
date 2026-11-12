@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Saber Haidari Mobile Shop</title>
+    <title>Contact Us - SH Mobile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,6 +12,7 @@
         .glass-header { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); }
     </style>
     <script src="theme.js"></script>
+    <link rel="icon" type="image/jpeg" href="logo.jpeg">
     <link rel="stylesheet" href="theme.css">
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
@@ -21,11 +22,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <a href="index.html" class="flex items-center gap-3">
-                    <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
-                        <i class="fa-solid fa-mobile-screen-button text-xl"></i>
-                    </div>
+                    <img src="logo.jpeg" alt="SH Mobile logo" class="w-11 h-11 rounded-xl object-cover shadow-lg shadow-black/30 group-hover:scale-105 transition-transform">
                     <div>
-                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-blue-400 bg-clip-text text-transparent">Saber Haidari</span>
+                        <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-200 to-blue-400 bg-clip-text text-transparent">SH Mobile</span>
                         <span class="block text-xs font-semibold text-blue-400 tracking-wider uppercase">Mobile Shop</span>
                     </div>
                 </a>
@@ -51,7 +50,7 @@
     <!-- Contact Main -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow">
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">Contact Saber Haidari Mobile</h1>
+            <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">Contact SH Mobile</h1>
             <p class="text-slate-400 text-lg mt-4 leading-relaxed">Have questions about a mobile phone model, warranty, or bulk order? Get in touch with our expert sales team.</p>
         </div>
 
@@ -66,7 +65,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-white text-lg">Main Showroom Location</h3>
-                        <p class="text-slate-400 text-sm mt-1">Saber Haidari Mobile Center, Main Commercial Street, Kabul, Afghanistan.</p>
+                        <p class="text-slate-400 text-sm mt-1">SH Mobile, Deira Frij Al Murar, Shop No. 14, Dubai, UAE.</p>
                     </div>
                 </div>
 
@@ -76,19 +75,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-white text-lg">Phone & WhatsApp Support</h3>
-                        <p class="text-slate-400 text-sm mt-1">+93 (0) 700 000 000</p>
-                        <p class="text-slate-400 text-sm">+93 (0) 799 111 222</p>
-                    </div>
-                </div>
-
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 flex items-start gap-4">
-                    <div class="p-4 bg-indigo-600/10 text-indigo-400 rounded-2xl border border-indigo-500/20 text-xl">
-                        <i class="fa-solid fa-envelope"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-white text-lg">Email Enquiries</h3>
-                        <p class="text-slate-400 text-sm mt-1">support@saberhaidarimobile.com</p>
-                        <p class="text-slate-400 text-sm">sales@saberhaidarimobile.com</p>
+                        <p class="text-slate-400 text-sm mt-1"><a href="tel:+971557250280" class="hover:text-blue-400">+971 55 725 0280</a></p>
                     </div>
                 </div>
 
@@ -98,15 +85,15 @@
             <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl">
                 <h3 class="text-2xl font-bold text-white mb-6">Send Us a Direct Message</h3>
                 
-                <form onsubmit="event.preventDefault(); showToast('Message sent successfully to Saber Haidari Mobile Shop!', 'success'); this.reset();" class="space-y-6">
+                <form onsubmit="event.preventDefault(); showToast('Message sent successfully to SH Mobile!', 'success'); this.reset();" class="space-y-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Your Full Name</label>
-                            <input type="text" required placeholder="Saber Haidari" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
+                            <input type="text" required placeholder="Your name" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Phone Number</label>
-                            <input type="tel" required placeholder="+93 7..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
+                            <input type="tel" required placeholder="+971 5..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                     </div>
 
@@ -131,7 +118,7 @@
 
     <!-- Footer -->
     <footer class="bg-slate-950 border-t border-slate-800 py-8 text-center text-xs text-slate-500">
-        © 2026 Saber Haidari Mobile Shop. All rights reserved.
+        © 2026 SH Mobile. All rights reserved.
     </footer>
 </body>
 </html>
