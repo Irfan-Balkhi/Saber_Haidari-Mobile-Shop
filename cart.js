@@ -1,0 +1,97 @@
+// Shared cart logic (used by index.html and shop.html). Cart persists across pages via localStorage.
+const CART_KEY = 'sh-mobile-cart';
+let cart = loadCart();
+
+function loadCart() {
+    try {
+        const data = JSON.parse(localStorage.getItem(CART_KEY));
+        return Array.isArray(data) ? data : [];
+    } catch (e) { return []; }
+}
+
+function saveCart() {
+    try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) { /* storage unavailable */ }
+}
+
+function escapeHTML(s) {
+    return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function toggleCart() {
+    document.getElementById('cart-drawer').classList.toggle('invisible');
+}
+
+function addToCart(title, price, brand) {
+    const existing = cart.find(i => i.title === title);
+    if (existing) existing.qty += 1;
+    else cart.push({ title, price, brand, qty: 1 });
+    updateCartUI();
+    document.getElementById('cart-drawer').classList.remove('invisible');
+}
+
+function changeQty(index, delta) {
+    if (!cart[index]) return;
+    cart[index].qty += delta;
+    if (cart[index].qty <= 0) cart.splice(index, 1);
+    updateCartUI();
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+}
+
+function updateCartUI() {
+    saveCart();
+    const count = cart.reduce((n, i) => n + i.qty, 0);
+    document.getElementById('cart-badge').innerText = count;
+    const container = document.getElementById('cart-items');
+
+    if (cart.length === 0) {
+        container.innerHTML = '<p class="text-slate-400 text-sm text-center py-8">Your cart is currently empty.</p>';
+        document.getElementById('cart-subtotal').innerText = '$0';
+        return;
+    }
+
+    let total = 0;
+    container.innerHTML = cart.map((item, index) => {
+        total += item.price * item.qty;
+        return `
+            <div class="flex items-center justify-between bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                <div>
+                    <p class="font-bold text-white text-sm">${escapeHTML(item.title)}</p>
+                    <p class="text-xs text-blue-400 font-semibold">${escapeHTML(item.brand)}</p>
+                    <p class="text-sm font-extrabold text-white mt-1">$${(item.price * item.qty).toLocaleString()}</p>
+                    <div class="flex items-center gap-2 mt-2">
+                        <button onclick="changeQty(${index}, -1)" class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-sm" aria-label="Decrease quantity">&minus;</button>
+                        <span class="text-sm w-5 text-center">${item.qty}</span>
+                        <button onclick="changeQty(${index}, 1)" class="w-6 h-6 rounded bg-slate-800 hover:bg-slate-700 text-sm" aria-label="Increase quantity">+</button>
+                    </div>
+                </div>
+                <button onclick="removeFromCart(${index})" class="text-slate-500 hover:text-red-400 p-2" aria-label="Remove item">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>`;
+    }).join('');
+    document.getElementById('cart-subtotal').innerText = `$${total.toLocaleString()}`;
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+    alert('Thank you for choosing Saber Haidari Mobile Shop! Your order has been registered.');
+    cart = [];
+    updateCartUI();
+    toggleCart();
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const drawer = document.getElementById('cart-drawer');
+    if (drawer) drawer.classList.add('invisible');
+    if (typeof closeModal === 'function') closeModal();
+});
+
+document.addEventListener('DOMContentLoaded', updateCartUI);
