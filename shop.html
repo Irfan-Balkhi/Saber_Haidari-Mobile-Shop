@@ -41,6 +41,11 @@
                     </button>
                 </div>
             </div>
+            <nav class="md:hidden flex items-center justify-center gap-6 pb-3 text-sm font-medium text-slate-300">
+                <a href="index.html" class="hover:text-blue-400">Home</a>
+                <a href="shop.html" class="text-blue-400 font-semibold">Shop</a>
+                <a href="contact.html" class="hover:text-blue-400">Contact</a>
+            </nav>
         </div>
     </header>
 
@@ -57,7 +62,7 @@
                 <!-- Live Search Bar -->
                 <div class="relative w-full sm:w-72">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-3.5 text-slate-400"></i>
-                    <input type="text" id="search-input" onkeyup="filterProducts()" placeholder="Search mobile model..." class="w-full bg-slate-950 border border-slate-700 rounded-2xl pl-11 pr-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500">
+                    <input type="text" id="search-input" oninput="filterProducts()" placeholder="Search mobile model..." class="w-full bg-slate-950 border border-slate-700 rounded-2xl pl-11 pr-4 py-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500">
                 </div>
                 
                 <!-- Brand Select -->
@@ -104,7 +109,7 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div id="cart-items" class="py-6 space-y-4 max-h-[60vh] overflow-y-auto"></div>
+                <div id="cart-items" class="py-6 space-y-4 max-h-[60vh] overflow-y-auto"><p class="text-slate-400 text-sm text-center py-8">Your cart is currently empty.</p></div>
             </div>
             <div class="pt-4 border-t border-slate-800 space-y-4">
                 <div class="flex items-center justify-between">
@@ -122,6 +127,7 @@
         © 2026 Saber Haidari Mobile Shop. All rights reserved.
     </footer>
 
+    <script src="cart.js"></script>
     <script>
         const products = [
             { id: 1, title: 'iPhone 15 Pro Max', brand: 'Apple', price: 1199, storage: '256GB', ram: '8GB', img: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80', desc: 'Titanium build with A17 Pro Chip and groundbreaking zoom lens.' },
@@ -132,10 +138,13 @@
             { id: 6, title: 'Galaxy Z Fold 5', brand: 'Samsung', price: 1799, storage: '512GB', ram: '12GB', img: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=600&q=80', desc: 'Massive 7.6-inch main foldable screen for ultimate productivity.' }
         ];
 
-        let cart = [];
 
         function renderProducts(items) {
             const grid = document.getElementById('catalog-grid');
+            if (items.length === 0) {
+                grid.innerHTML = '<p class="col-span-full text-center text-slate-400 py-16">No phones match your search.</p>';
+                return;
+            }
             grid.innerHTML = items.map(p => `
                 <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
                     <div>
@@ -161,7 +170,7 @@
                             <button onclick="openModal(${p.id})" class="p-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-sm font-semibold transition" title="Quick View">
                                 <i class="fa-solid fa-eye"></i>
                             </button>
-                            <button onclick="addToCart('${p.title}', ${p.price}, '${p.brand}')" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2 shadow-lg shadow-blue-600/30 transition">
+                            <button onclick="addProduct(${p.id})" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-3 rounded-xl font-bold text-xs flex items-center gap-2 shadow-lg shadow-blue-600/30 transition">
                                 <i class="fa-solid fa-cart-plus"></i>
                                 <span>Add</span>
                             </button>
@@ -169,6 +178,11 @@
                     </div>
                 </div>
             `).join('');
+        }
+
+        function addProduct(id) {
+            const p = products.find(x => x.id === id);
+            if (p) addToCart(p.title, p.price, p.brand);
         }
 
         function filterProducts() {
@@ -199,7 +213,7 @@
                             <span class="bg-slate-800 px-3 py-1 rounded-lg text-xs font-semibold">RAM: ${p.ram}</span>
                         </div>
                         <p class="text-3xl font-black text-white">$${p.price}</p>
-                        <button onclick="addToCart('${p.title}', ${p.price}, '${p.brand}'); closeModal();" class="w-full py-3.5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-500 transition">
+                        <button onclick="addProduct(${p.id}); closeModal();" class="w-full py-3.5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-500 transition">
                             Add to Cart Now
                         </button>
                     </div>
@@ -212,53 +226,13 @@
             document.getElementById('quick-modal').classList.add('invisible');
         }
 
-        function toggleCart() {
-            document.getElementById('cart-drawer').classList.toggle('invisible');
+        // Initial Render (honour ?brand=Apple links from the home page)
+        const brandParam = new URLSearchParams(location.search).get('brand');
+        const brandSelect = document.getElementById('brand-select');
+        if (brandParam && [...brandSelect.options].some(o => o.value === brandParam)) {
+            brandSelect.value = brandParam;
         }
-
-        function addToCart(title, price, brand) {
-            cart.push({ title, price, brand });
-            updateCart();
-            toggleCart();
-        }
-
-        function updateCart() {
-            document.getElementById('cart-badge').innerText = cart.length;
-            const container = document.getElementById('cart-items');
-            if(cart.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-sm text-center py-8">Your cart is empty.</p>`;
-                document.getElementById('cart-subtotal').innerText = '$0';
-                return;
-            }
-            let total = 0;
-            container.innerHTML = cart.map((item, idx) => {
-                total += item.price;
-                return `
-                    <div class="flex items-center justify-between bg-slate-950 p-4 rounded-2xl border border-slate-800">
-                        <div>
-                            <p class="font-bold text-white text-sm">${item.title}</p>
-                            <p class="text-xs text-blue-400 font-semibold">${item.brand}</p>
-                            <p class="text-sm font-extrabold text-white mt-1">$${item.price}</p>
-                        </div>
-                        <button onclick="cart.splice(${idx},1); updateCart();" class="text-slate-500 hover:text-red-400 p-2">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-                `;
-            }).join('');
-            document.getElementById('cart-subtotal').innerText = `$${total.toLocaleString()}`;
-        }
-
-        function checkout() {
-            if(!cart.length) return alert('Cart is empty!');
-            alert('Order placed successfully with Saber Haidari Mobile Shop!');
-            cart = [];
-            updateCart();
-            toggleCart();
-        }
-
-        // Initial Render
-        renderProducts(products);
+        filterProducts();
     </script>
 </body>
 </html>
