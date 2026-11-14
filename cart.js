@@ -1,5 +1,7 @@
 // Shared cart logic (used by index.html and shop.html). Cart persists across pages via localStorage.
 const CART_KEY = 'sh-mobile-cart';
+// Shop WhatsApp number (digits only, with country code). Orders and chat links go here.
+const WHATSAPP_NUMBER = '971557250280';
 let cart = loadCart();
 
 function loadCart() {
@@ -81,10 +83,23 @@ function checkout() {
         showToast('Your cart is empty!', 'error');
         return;
     }
+    const lines = cart.map((item, i) =>
+        `${i + 1}. ${item.title} (${item.brand})\n    Qty: ${item.qty} x $${item.price.toLocaleString('en-US')} = $${(item.price * item.qty).toLocaleString('en-US')}`);
+    const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+    const message = 'Hello SH Mobile, I would like to place an order:\n\n' +
+        lines.join('\n') +
+        `\n\nTotal: $${total.toLocaleString('en-US')}\n\nPlease confirm availability and delivery details.`;
+    const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+
+    // Open WhatsApp in a new tab (falls back to same tab if the popup is blocked).
+    const win = window.open(url, '_blank');
+    if (win) win.opener = null;
+    else window.location.href = url;
+
     cart = [];
     updateCartUI();
     toggleCart();
-    showToast('Thank you for choosing SH Mobile! Your order has been registered.', 'success');
+    showToast('Your order was sent to WhatsApp. Please press Send to confirm it with SH Mobile.', 'success');
 }
 
 document.addEventListener('keydown', e => {
