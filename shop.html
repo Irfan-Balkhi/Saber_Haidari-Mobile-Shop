@@ -67,12 +67,12 @@
                 </div>
                 
                 <!-- Brand Select -->
-                <select id="brand-select" onchange="filterProducts()" class="w-full sm:w-48 bg-slate-950 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                <!-- Category / Brand selects (options are built from products.js) -->
+                <select id="category-select" onchange="filterProducts()" aria-label="Category" class="w-full sm:w-44 bg-slate-950 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
+                    <option value="All">All Categories</option>
+                </select>
+                <select id="brand-select" onchange="filterProducts()" aria-label="Brand" class="w-full sm:w-40 bg-slate-950 border border-slate-700 rounded-2xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500">
                     <option value="All">All Brands</option>
-                    <option value="Apple">Apple iPhone</option>
-                    <option value="Samsung">Samsung</option>
-                    <option value="Google">Google Pixel</option>
-                    <option value="Xiaomi">Xiaomi</option>
                 </select>
             </div>
         </div>
@@ -157,15 +157,14 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
                     <div>
                         <div class="relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
-                            <img src="${p.img}" alt="${p.title}" class="h-52 object-contain group-hover:scale-110 transition duration-500">
+                            <img src="${p.img}" alt="${p.title}" loading="lazy" class="h-52 object-contain group-hover:scale-110 transition duration-500 rounded-xl" style="background:#f5f5f7">
                         </div>
-                        <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">${p.brand}</p>
+                        <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">${p.brand} &middot; ${p.category}</p>
                         <h3 class="text-xl font-bold text-white mt-1">${p.title}</h3>
                         <p class="text-slate-400 text-sm mt-2 line-clamp-2">${p.desc}</p>
                         
                         <div class="flex flex-wrap gap-2 mt-4">
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg">${p.storage}</span>
-                            <span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg">${p.ram}</span>
+                            ${p.specs.map(s => `<span class="px-2.5 py-1 bg-slate-800 text-slate-300 text-xs rounded-lg">${s}</span>`).join('')}
                         </div>
                     </div>
 
@@ -191,11 +190,13 @@
         function filterProducts() {
             const query = document.getElementById('search-input').value.toLowerCase();
             const brand = document.getElementById('brand-select').value;
-            
+            const category = document.getElementById('category-select').value;
+
             const filtered = products.filter(p => {
                 const matchesSearch = p.title.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query);
                 const matchesBrand = brand === 'All' || p.brand === brand;
-                return matchesSearch && matchesBrand;
+                const matchesCategory = category === 'All' || p.category === category;
+                return matchesSearch && matchesBrand && matchesCategory;
             });
 
             renderProducts(filtered);
@@ -206,14 +207,13 @@
             const content = document.getElementById('modal-content');
             content.innerHTML = `
                 <div class="flex flex-col md:flex-row gap-6">
-                    <img src="${p.img}" class="h-64 object-contain mx-auto bg-slate-950 p-4 rounded-2xl border border-slate-800">
+                    <img src="${p.img}" alt="${p.title}" class="h-64 object-contain mx-auto p-4 rounded-2xl border border-slate-800" style="background:#f5f5f7">
                     <div class="space-y-4">
                         <span class="text-xs font-semibold text-blue-400 uppercase tracking-widest">${p.brand}</span>
                         <h2 class="text-2xl font-black text-white">${p.title}</h2>
                         <p class="text-slate-400 text-sm leading-relaxed">${p.desc}</p>
-                        <div class="flex gap-4">
-                            <span class="bg-slate-800 px-3 py-1 rounded-lg text-xs font-semibold">Storage: ${p.storage}</span>
-                            <span class="bg-slate-800 px-3 py-1 rounded-lg text-xs font-semibold">RAM: ${p.ram}</span>
+                        <div class="flex flex-wrap gap-2">
+                            ${p.specs.map(s => `<span class="bg-slate-800 px-3 py-1 rounded-lg text-xs font-semibold">${s}</span>`).join('')}
                         </div>
                         <p class="text-3xl font-black text-white">$${p.price}</p>
                         <button onclick="addProduct(${p.id}); closeModal();" class="w-full py-3.5 bg-blue-600 text-white font-bold rounded-2xl hover:bg-blue-500 transition">
@@ -230,11 +230,17 @@
         }
 
         // Initial Render (honour ?brand=Apple links from the home page)
-        const brandParam = new URLSearchParams(location.search).get('brand');
         const brandSelect = document.getElementById('brand-select');
-        if (brandParam && [...brandSelect.options].some(o => o.value === brandParam)) {
-            brandSelect.value = brandParam;
-        }
+        const categorySelect = document.getElementById('category-select');
+        const addOptions = (select, values) => [...new Set(values)].forEach(v => select.add(new Option(v, v)));
+        addOptions(brandSelect, products.map(p => p.brand));
+        addOptions(categorySelect, products.map(p => p.category));
+
+        const params = new URLSearchParams(location.search);
+        [['brand', brandSelect], ['category', categorySelect]].forEach(([key, select]) => {
+            const v = params.get(key);
+            if (v && [...select.options].some(o => o.value === v)) select.value = v;
+        });
         filterProducts();
     </script>
 </body>
