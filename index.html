@@ -479,8 +479,7 @@
     <script src="cart.js"></script>
     <script>
         // ---------- WhatsApp ----------
-        // Shop WhatsApp number (digits only, with country code).
-        const WHATSAPP_NUMBER = '971557250280';
+        // WHATSAPP_NUMBER is defined in cart.js.
         const WHATSAPP_MESSAGE = 'Hello SH Mobile, I have a question about a phone.';
         document.querySelectorAll('[data-wa]').forEach(a => {
             a.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(WHATSAPP_MESSAGE);
