@@ -15,7 +15,10 @@ const products = [
     { id: 11, title: 'Galaxy Tab S10+', brand: 'Samsung', category: 'Tablets', price: 999, specs: ['12.4-inch AMOLED', '256GB', '12GB RAM'], img: 'images/galaxy-tab-s10-plus.png', desc: 'Large Dynamic AMOLED 2X display with S Pen included, built for work and play.' },
     { id: 12, title: 'Galaxy Watch7', brand: 'Samsung', category: 'Watches', price: 299, specs: ['40mm', 'Bluetooth', 'Galaxy AI'], img: 'images/galaxy-watch7.png', desc: 'Smarter health tracking and a bright always-on display on your wrist.' },
     { id: 13, title: 'Pixel Watch 5', brand: 'Google', category: 'Watches', price: 349, specs: ['Wear OS', 'Fitbit'], img: 'images/pixel-watch-5.png', desc: 'The Google smartwatch with Fitbit health tracking and Gemini built in.' },
-    { id: 14, title: 'Galaxy Buds4', brand: 'Samsung', category: 'Audio', price: 179, specs: ['Bluetooth', 'Noise Cancelling'], img: 'images/galaxy-buds4.png', desc: 'Compact true wireless earbuds with a metal-finish stem and Galaxy AI features.' }
+    { id: 14, title: 'Galaxy Buds4', brand: 'Samsung', category: 'Audio', price: 179, specs: ['Bluetooth', 'Noise Cancelling'], img: 'images/galaxy-buds4.png', desc: 'Compact true wireless earbuds with a metal-finish stem and Galaxy AI features.' },
+    { id: 15, title: 'Bose QuietComfort Ultra Headphones', brand: 'Bose', category: 'Audio', price: 429, specs: ['Noise Cancelling', 'Spatial Audio', 'Over-ear'], img: 'images/bose-qc-ultra.png', desc: 'World-class noise cancellation and immersive audio in a premium over-ear design.' },
+    { id: 16, title: 'Anker Nano Charger (20W)', brand: 'Anker', category: 'Accessories', price: 19, specs: ['20W', 'USB-C', 'Fast Charging'], img: 'images/anker-nano-20w.png', desc: 'Ultra-compact USB-C fast charger for phones and tablets.' },
+    { id: 17, title: 'Anker Zolo Power Bank (20K)', brand: 'Anker', category: 'Accessories', price: 49, specs: ['20,000mAh', 'Built-in USB-C Cable'], img: 'images/anker-zolo-20k.png', desc: '20,000mAh power bank with a built-in USB-C cable and a clear digital display.' }
 ];
 
 // Add a product to the cart by id (requires cart.js).
