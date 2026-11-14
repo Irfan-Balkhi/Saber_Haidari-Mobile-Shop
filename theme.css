@@ -114,3 +114,34 @@ html.js .reveal.in { opacity: 1; transform: none; }
 html[data-theme="light"] .promo-banner .text-white { color: #ffffff !important; }
 
 html[data-theme="light"] .text-slate-600 { color: #cbd5e1; }
+
+
+/* ---------- Developer credit: hover / focus / tap card ---------- */
+.dev-credit { margin-top: 8px; font-size: 13px; }
+.dev-pop { position: relative; display: inline-block; }
+.dev-name { color: #60a5fa; font-weight: 700; border-bottom: 1px dashed currentColor; }
+.dev-card {
+    position: absolute; bottom: calc(100% + 12px); left: 50%; width: 280px; max-width: calc(100vw - 32px);
+    transform: translate(-50%, 8px); background: #0f172a; border: 1px solid #334155; border-radius: 16px;
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, .6); padding: 16px; text-align: left; font-size: 13px;
+    display: flex; flex-direction: column; gap: 2px; opacity: 0; visibility: hidden;
+    transition: opacity .2s, transform .2s, visibility .2s; z-index: 50;
+}
+.dev-card::after { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 14px; } /* hover bridge */
+.dev-pop:hover .dev-card, .dev-pop:focus-within .dev-card, .dev-pop.open .dev-card { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.dev-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding-bottom: 10px; border-bottom: 1px solid #334155; }
+.dev-head img { width: 44px; height: 44px; object-fit: contain; border-radius: 10px; background: #fff; padding: 4px; }
+.dev-head b { display: block; color: #f1f5f9; font-size: 15px; }
+.dev-head small { color: #94a3b8; font-size: 12px; line-height: 1.3; display: block; }
+.dev-card a, .dev-loc { display: block; padding: 4px 0; color: #94a3b8; }
+.dev-card a:hover { color: #60a5fa; }
+.dev-card i { width: 16px; text-align: center; margin-right: 4px; color: #60a5fa; }
+.dev-card a.dev-btn { margin-top: 8px; text-align: center; background: #2563eb; color: #fff; border-radius: 30px; padding: 8px; font-weight: 700; }
+.dev-card a.dev-btn:hover { color: #fff; opacity: .9; }
+html[data-theme="light"] .dev-name { color: #2563eb; }
+html[data-theme="light"] .dev-card { background: #fff; border-color: #cbd5e1; box-shadow: 0 20px 40px -12px rgba(15, 23, 42, .25); }
+html[data-theme="light"] .dev-head { border-color: #e2e8f0; }
+html[data-theme="light"] .dev-head b { color: #0f172a; }
+html[data-theme="light"] .dev-head small, html[data-theme="light"] .dev-card a, html[data-theme="light"] .dev-loc { color: #475569; }
+html[data-theme="light"] .dev-card a:hover, html[data-theme="light"] .dev-card i { color: #2563eb; }
+html[data-theme="light"] .dev-card a.dev-btn { color: #fff; }
