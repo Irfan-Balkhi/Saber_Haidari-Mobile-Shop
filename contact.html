@@ -65,7 +65,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-white text-lg">Main Showroom Location</h3>
-                        <p class="text-slate-400 text-sm mt-1">SH Mobile, Deira Frij Al Murar, Shop No. 14, Dubai, UAE.</p>
+                        <p class="text-slate-400 text-sm mt-1" data-shop-address></p>
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-white text-lg">Phone & WhatsApp Support</h3>
-                        <p class="text-slate-400 text-sm mt-1"><a href="tel:+971557250280" class="hover:text-blue-400">+971 55 725 0280</a></p>
+                        <p class="text-slate-400 text-sm mt-1"><a data-shop-phone href="#" class="hover:text-blue-400"></a></p>
                     </div>
                 </div>
 
@@ -85,31 +85,32 @@
             <div class="lg:col-span-7 bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl">
                 <h3 class="text-2xl font-bold text-white mb-6">Send Us a Direct Message</h3>
                 
-                <form onsubmit="event.preventDefault(); showToast('Message sent successfully to SH Mobile!', 'success'); this.reset();" class="space-y-6">
+                <form id="contact-form" class="space-y-6">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Your Full Name</label>
-                            <input type="text" required placeholder="Your name" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
+                            <input type="text" name="name" required placeholder="Your name" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Phone Number</label>
-                            <input type="tel" required placeholder="+971 5..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
+                            <input type="tel" name="phone" required placeholder="+971 5..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
-                        <input type="email" required placeholder="name@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
+                        <input type="email" name="email" required placeholder="name@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-2xl px-4 py-3 text-slate-100 text-sm focus:outline-none focus:border-blue-500">
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Mobile Model / Inquiry</label>
-                        <textarea rows="4" required placeholder="Write your question or request here..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-100 text-sm focus:outline-none focus:border-blue-500"></textarea>
+                        <textarea name="message" rows="4" required placeholder="Write your question or request here..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-slate-100 text-sm focus:outline-none focus:border-blue-500"></textarea>
                     </div>
 
                     <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-2xl shadow-xl shadow-blue-600/30 transition">
-                        Submit Message
+                        <i class="fa-brands fa-whatsapp mr-2"></i>Send via WhatsApp
                     </button>
+                    <p class="text-xs text-slate-500 text-center">Your message opens in WhatsApp. Press Send there to deliver it to SH Mobile.</p>
                 </form>
             </div>
 
@@ -133,5 +134,25 @@
             </span>
         </div>
     </footer>
+
+    <script src="config.js"></script>
+    <script>
+        // The form sends the message to the shop's WhatsApp (same route as cart checkout).
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const f = this.elements;
+            const message = 'Hello SH Mobile, I have an inquiry:\n\n' +
+                'Name: ' + f.name.value.trim() + '\n' +
+                'Phone: ' + f.phone.value.trim() + '\n' +
+                'Email: ' + f.email.value.trim() + '\n\n' +
+                f.message.value.trim();
+            const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+            const win = window.open(url, '_blank');
+            if (win) win.opener = null;
+            else window.location.href = url;
+            showToast('Opening WhatsApp. Please press Send to deliver your message.', 'success');
+            this.reset();
+        });
+    </script>
 </body>
 </html>
