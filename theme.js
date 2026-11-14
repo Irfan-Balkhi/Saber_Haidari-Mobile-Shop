@@ -122,3 +122,15 @@
         applyTheme(document.documentElement.getAttribute('data-theme'));
     });
 })();
+
+// Developer credit card: on touch screens the first tap opens the card instead of leaving the page.
+document.addEventListener('click', function (e) {
+    const pop = document.querySelector('.dev-pop');
+    if (!pop) return;
+    if (e.target.closest('.dev-name') && window.matchMedia('(hover: none)').matches && !pop.classList.contains('open')) {
+        e.preventDefault();
+        pop.classList.add('open');
+    } else if (!e.target.closest('.dev-pop')) {
+        pop.classList.remove('open');
+    }
+});
