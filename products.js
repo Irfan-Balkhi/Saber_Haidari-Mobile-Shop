@@ -1,11 +1,12 @@
 // Single source of truth for products (used by index.html and shop.html).
 // To change a price or name, edit it here only.
+// zoom: true = image has a small product on a wide light-grey canvas (Apple iPhone shots); shown enlarged.
 // category: Smartphones | Tablets | Watches | Audio | Accessories. Local images live in images/.
 const products = [
-    { id: 1, title: 'iPhone 15 Pro Max', brand: 'Apple', category: 'Smartphones', price: 1199, specs: ['256GB', '8GB RAM'], img: 'images/iphone-15-pro-max.png', desc: 'Titanium build with A17 Pro Chip and groundbreaking zoom lens.' },
+    { id: 1, title: 'iPhone 15 Pro Max', brand: 'Apple', category: 'Smartphones', price: 1199, specs: ['256GB', '8GB RAM'], img: 'images/iphone-15-pro-max.png', zoom: true, desc: 'Titanium build with A17 Pro Chip and groundbreaking zoom lens.' },
     { id: 2, title: 'Galaxy S24 Ultra', brand: 'Samsung', category: 'Smartphones', price: 1299, specs: ['512GB', '12GB RAM'], img: 'images/galaxy-s24-ultra.jpg', desc: 'Built-in S Pen, Snapdragon 8 Gen 3, and full Galaxy AI suite.' },
     { id: 3, title: 'Google Pixel 10 Pro', brand: 'Google', category: 'Smartphones', price: 999, specs: ['128GB', '16GB RAM'], img: 'images/pixel-10-pro.png', desc: 'Google Tensor G5, a pro-level camera system and 7 years of Android updates.' },
-    { id: 4, title: 'iPhone 15', brand: 'Apple', category: 'Smartphones', price: 799, specs: ['128GB', '6GB RAM'], img: 'images/iphone-15.png', desc: 'Dynamic Island, 48MP Main camera, and USB-C connectivity.' },
+    { id: 4, title: 'iPhone 15', brand: 'Apple', category: 'Smartphones', price: 799, specs: ['128GB', '6GB RAM'], img: 'images/iphone-15.png', zoom: true, desc: 'Dynamic Island, 48MP Main camera, and USB-C connectivity.' },
     { id: 5, title: 'Xiaomi 14 Ultra', brand: 'Xiaomi', category: 'Smartphones', price: 999, specs: ['512GB', '16GB RAM'], img: 'images/xiaomi-14-ultra.png', desc: 'Leica Quad Camera optics with 1-inch main sensor.' },
     { id: 6, title: 'Galaxy Z Fold 5', brand: 'Samsung', category: 'Smartphones', price: 1799, specs: ['512GB', '12GB RAM'], img: 'images/galaxy-z-fold5.png', desc: 'Massive 7.6-inch main foldable screen for ultimate productivity.' },
     { id: 7, title: 'iPad Pro 13-inch (M4)', brand: 'Apple', category: 'Tablets', price: 1299, specs: ['256GB', '8GB RAM', 'Wi-Fi'], img: 'images/ipad-pro-13.png', desc: 'Ultra Retina XDR tandem OLED display and the M4 chip in an impossibly thin design.' },

@@ -30,8 +30,9 @@
         .brand-pill i { transition: transform .25s ease; }
         .brand-pill:hover i { transform: scale(1.15) rotate(-6deg); }
         .product-card:hover { border-color: rgba(59, 130, 246, 0.55); }
-        .product-media { background-image: radial-gradient(circle at 50% 45%, rgba(59, 130, 246, 0.22), transparent 65%); }
-        .product-media img { filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.35)); }
+        .product-media { background: #f5f5f7; height: 18rem; }
+        .product-media img { max-width: 100%; max-height: 100%; width: auto; height: auto; mix-blend-mode: multiply; }
+        .product-media > span { z-index: 10; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); }
         .product-card :is(a, button):focus-visible, .brand-pill:focus-visible { outline: 2px solid #3b82f6; outline-offset: 3px; }
         @media (prefers-reduced-motion: reduce) { .orb, .animate-float { animation: none; } .rise { opacity: 1; animation: none; } .brand-pill:hover, .brand-pill:hover i { transform: none; } }
     </style>
@@ -203,9 +204,9 @@
                 <!-- Phone 1 -->
                 <div class="product-card reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
                     <div>
-                        <div class="product-media relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
+                        <div class="product-media relative rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-blue-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">Top Seller</span>
-                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="images/iphone-15-pro-max.png" style="background:#f5f5f7" alt="iPhone 15 Pro Max" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="images/iphone-15-pro-max.png" style="max-width:none;height:150%;mix-blend-mode:normal" alt="iPhone 15 Pro Max" class="object-contain group-hover:scale-105 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Apple</p>
                         <h3 class="text-xl font-bold text-white mt-1">iPhone 15 Pro Max</h3>
@@ -233,9 +234,9 @@
                 <!-- Phone 2 -->
                 <div class="product-card reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
                     <div>
-                        <div class="product-media relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
+                        <div class="product-media relative rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-emerald-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">New Arrival</span>
-                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="images/galaxy-s24-ultra.jpg" style="background:#fff" alt="Samsung Galaxy S24 Ultra" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="images/galaxy-s24-ultra.jpg" alt="Samsung Galaxy S24 Ultra" class="object-contain group-hover:scale-105 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Samsung</p>
                         <h3 class="text-xl font-bold text-white mt-1">Galaxy S24 Ultra</h3>
@@ -263,9 +264,9 @@
                 <!-- Phone 3 -->
                 <div class="product-card reveal bg-slate-900 border border-slate-800 rounded-3xl p-6 card-hover flex flex-col justify-between group">
                     <div>
-                        <div class="product-media relative bg-slate-950 rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
+                        <div class="product-media relative rounded-2xl p-6 mb-6 flex justify-center items-center overflow-hidden">
                             <span class="absolute top-3 left-3 bg-indigo-600/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-full">Camera King</span>
-                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="images/pixel-10-pro.png" style="background:#fff" alt="Google Pixel 10 Pro" class="h-56 object-contain group-hover:scale-110 transition-transform duration-500">
+                            <img loading="lazy" onerror="this.onerror=null;this.src=&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='224' viewBox='0 0 120 224'%3E%3Crect x='10' y='4' width='100' height='216' rx='20' fill='%231e293b' stroke='%2364748b' stroke-width='4'/%3E%3Crect x='20' y='22' width='80' height='180' rx='10' fill='%233b82f6' opacity='.35'/%3E%3C/svg%3E&quot;" src="images/pixel-10-pro.png" alt="Google Pixel 10 Pro" class="object-contain group-hover:scale-105 transition-transform duration-500">
                         </div>
                         <p class="text-xs font-semibold text-blue-400 uppercase tracking-wider">Google</p>
                         <h3 class="text-xl font-bold text-white mt-1">Google Pixel 10 Pro</h3>
