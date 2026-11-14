@@ -1,7 +1,6 @@
 // Shared cart logic (used by index.html and shop.html). Cart persists across pages via localStorage.
+// Requires config.js (WHATSAPP_NUMBER).
 const CART_KEY = 'sh-mobile-cart';
-// Shop WhatsApp number (digits only, with country code). Orders and chat links go here.
-const WHATSAPP_NUMBER = '971557250280';
 let cart = loadCart();
 
 function loadCart() {
